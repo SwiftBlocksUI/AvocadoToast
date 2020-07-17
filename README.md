@@ -12,7 +12,10 @@ Explained in blog article/tutorial:
 
 This repository contains the AvocadoToast demo.
 
-![](http://www.alwaysrightinstitute.com/images/blocksui/client-order-form-2.png)
+<center>
+  <img src="https://www.alwaysrightinstitute.com/images/blocksui/client-order-form-2.png" 
+       style="border-radius: 8px; border: 1px solid #EAEAEA; width: 50%;">
+</center>
 
 ## How to Run
 
