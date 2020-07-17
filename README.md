@@ -7,7 +7,12 @@ SwiftBlocksUI is a way to write interactive Slack messages and modal dialogs
 (also known as Slack "applications")
 using a SwiftUI like declarative style.
 
+Explained in blog article/tutorial: 
+[Instant “SwiftUI” Flavoured Slack Apps](http://www.alwaysrightinstitute.com/swiftblocksui/).
+
 This repository contains the AvocadoToast demo.
+
+![](http://www.alwaysrightinstitute.com/images/blocksui/client-order-form-2.png)
 
 ## How to Run
 
@@ -31,6 +36,61 @@ swift build
 ```
 
 Or open the `Package.swift` in Xcode and build it there.
+
+
+## Sample View
+
+```swift
+struct OrderForm: Blocks {
+  
+  @Environment(\.client) private var client
+  @Environment(\.user)   private var user
+
+  @State private var order = Order()
+  
+  private func submitOrder() {
+    console.log("User:", user, "did order:", order)
+    
+    let confirmationMessage =
+      OrderConfirmation(user: user.username, order: order)
+    
+    client.chat.sendMessage(confirmationMessage, to: user.id) { error in
+      error.flatMap { console.error("order confirmation failed!", $0) }
+    }
+  }
+  
+  var body: some Blocks {
+    View("Order Avocado Toast") {
+      
+      Picker("Bread", selection: $order.breadType) {
+        ForEach(BreadType.allCases) { breadType in
+          Text(breadType.name).tag(breadType)
+        }
+      }
+      
+      Picker("Avocado", selection: $order.avocadoStyle) {
+        "Sliced".tag(AvocadoStyle.sliced)
+        "Mashed".tag(AvocadoStyle.mashed)
+      }
+      
+      Picker("Spread", Spread.allCases, selection: $order.spread) { spread in
+        spread.name
+      }
+      
+      Checkboxes("Extras") {
+        Toggle("Include Salt 🧂",
+               isOn: $order.includeSalt)
+        Toggle("Include Red Pepper Flakes 🌶",
+               isOn: $order.includeRedPepperFlakes)
+      }
+      TextField("Quantity",
+                value: $order.quantity, formatter: NumberFormatter())
+      
+      Submit("Order", action: submitOrder)
+    }
+  }
+}
+```
 
 
 ## Environment Variables
