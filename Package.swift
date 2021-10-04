@@ -16,7 +16,7 @@ let package = Package(
   
   dependencies: [
     .package(url: "https://github.com/SwiftBlocksUI/SwiftBlocksUI.git",
-             from: "0.8.3")
+             from: "0.9.3")
   ],
   
   targets: [
