@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.5
 
 import PackageDescription
 
@@ -16,10 +16,10 @@ let package = Package(
   
   dependencies: [
     .package(url: "https://github.com/SwiftBlocksUI/SwiftBlocksUI.git",
-             from: "0.9.3")
+             from: "0.9.4")
   ],
   
   targets: [
-    .target(name: "AvocadoToast", dependencies: [ "SwiftBlocksUI" ])
+    .executableTarget(name: "AvocadoToast", dependencies: [ "SwiftBlocksUI" ])
   ]
 )
